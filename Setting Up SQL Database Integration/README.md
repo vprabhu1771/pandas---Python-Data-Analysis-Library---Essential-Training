@@ -55,16 +55,27 @@ print(df.head())
 To write a DataFrame to a database table, use `.to_sql()`:
 
 ```python
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Create a SQLAlchemy engine; adjust the URI based on your database
+# engine = create_engine('sqlite:///example.db')  # SQLite example
+
+# For MySQL: create_engine('mysql+pymysql://username:password@localhost/dbname')
+engine = create_engine('mysql+pymysql://root:''@localhost/dj_small_shop')
+
+# For PostgreSQL: create_engine('postgresql+psycopg2://username:password@localhost/dbname')
+
 # Sample DataFrame
 data = {
-    'Name': ['Alice', 'Bob', 'Charlie'],
-    'Age': [24, 27, 22],
-    'City': ['New York', 'Los Angeles', 'Chicago']
+    'name': ['a', 'b', 'c'],
 }
 df = pd.DataFrame(data)
 
 # Write the DataFrame to a SQL table
-df.to_sql('my_table', engine, if_exists='replace', index=False)
+# df.to_sql('category', engine, if_exists='replace', index=False)
+
+df.to_sql('category', engine, if_exists='append', index=False)
 ```
 
 - **Parameters**:
